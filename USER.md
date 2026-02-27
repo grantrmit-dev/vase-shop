@@ -7,6 +7,7 @@ _Learn about the person you're helping. Update this as you go._
 - **Pronouns:** _(optional)_
 - **Timezone:** Australian Eastern Daylight Time
 - **Notes:**
+  - User preference: respond to every message they send (do not stay silent).
 
 ## Context
 
