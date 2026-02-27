@@ -8,6 +8,7 @@ _Learn about the person you're helping. Update this as you go._
 - **Timezone:** Australian Eastern Daylight Time
 - **Notes:**
   - User preference: respond to every message they send (do not stay silent).
+  - On every heartbeat, review current mistakes/issues, propose improvements, and use multiple parallel sub-agents for the review.
 
 ## Context
 
