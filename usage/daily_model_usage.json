@@ -1,0 +1,10 @@
+[
+  {
+    "day": "2026-02-27",
+    "model": "gpt-5.3-codex",
+    "inputTokens": 13850,
+    "outputTokens": 722,
+    "cacheRead": 458368,
+    "cacheWrite": 0
+  }
+]

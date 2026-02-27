@@ -1,0 +1,121 @@
+#!/usr/bin/env python3
+import argparse
+import datetime as dt
+import json
+import os
+import subprocess
+from collections import defaultdict
+from pathlib import Path
+
+DATA_DIR = Path('/home/han/.openclaw/workspace/usage')
+SNAP_FILE = DATA_DIR / 'openclaw_usage_snapshots.jsonl'
+REPORT_FILE = DATA_DIR / 'daily_model_usage.json'
+
+
+def run_status_json():
+    out = subprocess.check_output(['openclaw', 'status', '--usage', '--json'], text=True)
+    return json.loads(out)
+
+
+def capture_snapshot():
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    payload = run_status_json()
+    now = dt.datetime.now(dt.timezone.utc).isoformat()
+
+    rows = []
+    for s in payload.get('sessions', {}).get('recent', []):
+        rows.append({
+            'capturedAt': now,
+            'sessionKey': s.get('key'),
+            'model': s.get('model'),
+            'inputTokens': s.get('inputTokens') or 0,
+            'outputTokens': s.get('outputTokens') or 0,
+            'cacheRead': s.get('cacheRead') or 0,
+            'cacheWrite': s.get('cacheWrite') or 0,
+            'totalTokens': s.get('totalTokens') or 0,
+        })
+
+    with SNAP_FILE.open('a', encoding='utf-8') as f:
+        for r in rows:
+            f.write(json.dumps(r, ensure_ascii=False) + '\n')
+
+    print(f'captured {len(rows)} session rows -> {SNAP_FILE}')
+
+
+def load_rows():
+    if not SNAP_FILE.exists():
+        return []
+    rows = []
+    with SNAP_FILE.open('r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if line:
+                rows.append(json.loads(line))
+    return rows
+
+
+def report():
+    rows = load_rows()
+    if not rows:
+        print('no snapshots yet')
+        return
+
+    # sort chronologically
+    rows.sort(key=lambda r: r['capturedAt'])
+
+    # delta-based aggregation per day/model to avoid double-counting snapshots
+    # key for monotonic counters: sessionKey + model
+    prev = {}
+    agg = defaultdict(lambda: {'inputTokens': 0, 'outputTokens': 0, 'cacheRead': 0, 'cacheWrite': 0})
+
+    for r in rows:
+        key = (r['sessionKey'], r['model'])
+        day = r['capturedAt'][:10]
+        p = prev.get(key)
+
+        if p is None:
+            di = r['inputTokens']
+            do = r['outputTokens']
+            dcr = r['cacheRead']
+            dcw = r['cacheWrite']
+        else:
+            di = max(0, r['inputTokens'] - p['inputTokens'])
+            do = max(0, r['outputTokens'] - p['outputTokens'])
+            dcr = max(0, r['cacheRead'] - p['cacheRead'])
+            dcw = max(0, r['cacheWrite'] - p['cacheWrite'])
+
+        bucket = agg[(day, r['model'])]
+        bucket['inputTokens'] += di
+        bucket['outputTokens'] += do
+        bucket['cacheRead'] += dcr
+        bucket['cacheWrite'] += dcw
+
+        prev[key] = r
+
+    out = []
+    for (day, model), vals in sorted(agg.items()):
+        out.append({'day': day, 'model': model, **vals})
+
+    DATA_DIR.mkdir(parents=True, exist_ok=True)
+    with REPORT_FILE.open('w', encoding='utf-8') as f:
+        json.dump(out, f, ensure_ascii=False, indent=2)
+
+    print(json.dumps(out, ensure_ascii=False, indent=2))
+    print(f'\nwritten: {REPORT_FILE}')
+
+
+def main():
+    ap = argparse.ArgumentParser(description='Track OpenClaw per-day/per-model token usage')
+    sub = ap.add_subparsers(dest='cmd', required=True)
+    sub.add_parser('capture')
+    sub.add_parser('report')
+    args = ap.parse_args()
+
+    if args.cmd == 'capture':
+        capture_snapshot()
+    elif args.cmd == 'report':
+        report()
+
+
+if __name__ == '__main__':
+    main()

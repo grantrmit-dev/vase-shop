@@ -1,0 +1,3 @@
+{"capturedAt": "2026-02-27T14:37:00.656234+00:00", "sessionKey": "agent:main:telegram:direct:8301225102", "model": "gpt-5.3-codex", "inputTokens": 4842, "outputTokens": 499, "cacheRead": 456832, "cacheWrite": 0, "totalTokens": 116236}
+{"capturedAt": "2026-02-27T14:37:00.656234+00:00", "sessionKey": "agent:main:main", "model": "gpt-5.3-codex", "inputTokens": 9008, "outputTokens": 223, "cacheRead": 1536, "cacheWrite": 0, "totalTokens": 10544}
+{"capturedAt": "2026-02-27T14:37:00.656234+00:00", "sessionKey": "telegram:slash:8301225102", "model": "gpt-5.3-codex", "inputTokens": 0, "outputTokens": 0, "cacheRead": 0, "cacheWrite": 0, "totalTokens": 0}
