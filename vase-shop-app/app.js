@@ -1,10 +1,10 @@
 const vases = [
-  { id: 1, name: 'Aero Minimal', style: 'minimal', material: 'PLA', basePrice: 32, colors: ['White','Black','Sand'], image: 'https://source.unsplash.com/R0qthXq3jec/400x300' },
-  { id: 2, name: 'Helix Bloom', style: 'spiral', material: 'PETG', basePrice: 48, colors: ['Teal','Amber','Graphite'], image: 'https://source.unsplash.com/uscciPpiMY4/400x300' },
-  { id: 3, name: 'Prism Nest', style: 'geometric', material: 'PLA', basePrice: 39, colors: ['Ivory','Olive','Slate'], image: 'https://source.unsplash.com/JG4RjqbvVhc/400x300' },
-  { id: 4, name: 'Coral Flow', style: 'organic', material: 'Resin', basePrice: 74, colors: ['Pearl','Rose','Smoke'], image: 'https://source.unsplash.com/mI_vUsbrwXk/400x300' },
-  { id: 5, name: 'Facet Tower', style: 'geometric', material: 'PETG', basePrice: 56, colors: ['Cobalt','Lime','Silver'], image: 'https://source.unsplash.com/tuJtzghMuEw/400x300' },
-  { id: 6, name: 'Zen Curve', style: 'minimal', material: 'PLA', basePrice: 29, colors: ['Cream','Navy','Terracotta'], image: 'https://source.unsplash.com/l0ah3UBLppo/400x300' }
+  { id: 1, name: 'Aero Minimal', style: 'minimal', material: 'PLA', basePrice: 32, colors: ['White','Black','Sand'], image: 'https://images.pexels.com/photos/1804035/pexels-photo-1804035.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { id: 2, name: 'Helix Bloom', style: 'spiral', material: 'PETG', basePrice: 48, colors: ['Teal','Amber','Graphite'], image: 'https://images.pexels.com/photos/4611612/pexels-photo-4611612.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { id: 3, name: 'Prism Nest', style: 'geometric', material: 'PLA', basePrice: 39, colors: ['Ivory','Olive','Slate'], image: 'https://images.pexels.com/photos/1166644/pexels-photo-1166644.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { id: 4, name: 'Coral Flow', style: 'organic', material: 'Resin', basePrice: 74, colors: ['Pearl','Rose','Smoke'], image: 'https://images.pexels.com/photos/4207892/pexels-photo-4207892.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { id: 5, name: 'Facet Tower', style: 'geometric', material: 'PETG', basePrice: 56, colors: ['Cobalt','Lime','Silver'], image: 'https://images.pexels.com/photos/6805522/pexels-photo-6805522.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
+  { id: 6, name: 'Zen Curve', style: 'minimal', material: 'PLA', basePrice: 29, colors: ['Cream','Navy','Terracotta'], image: 'https://images.pexels.com/photos/2062433/pexels-photo-2062433.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' }
 ];
 
 const sizeMultiplier = { small: 0.9, medium: 1, large: 1.25 };
