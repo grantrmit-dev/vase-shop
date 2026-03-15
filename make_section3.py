@@ -140,33 +140,24 @@ for k, d in durations.items():
 
 # ── Blurred background Ken Burns clip ────────────────────────────────────────
 
-KB_MODES = ["zoomin","zoomout","zoomin","panleft","panright","tiltup","tiltdown"]
+# Stabilized motion profile to avoid perceived shaking
+KB_MODES = ["zoomin_smooth"]
 
 def make_img_clip(img, out_path, dur, mode="zoomin", w=1920, h=1080, fps=25):
     if Path(out_path).exists():
         return True
     fr = int(dur * fps)
 
-    if mode == "zoomin":
-        zp = (f"zoompan=z='min(zoom+0.0006,1.15)'"
-              f":x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={fr}:s={w}x{h}:fps={fps}")
-    elif mode == "zoomout":
-        zp = (f"zoompan=z='if(eq(on,1),1.15,max(zoom-0.0006,1.0))'"
-              f":x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d={fr}:s={w}x{h}:fps={fps}")
-    elif mode == "panleft":
-        zp = (f"zoompan=z=1.1:x='min(iw*(1-1/zoom),iw/2-(iw/zoom/2)+on*0.6)'"
-              f":y='ih/2-(ih/zoom/2)':d={fr}:s={w}x{h}:fps={fps}")
-    elif mode == "panright":
-        zp = (f"zoompan=z=1.1:x='max(0,iw/2-(iw/zoom/2)-on*0.6)'"
-              f":y='ih/2-(ih/zoom/2)':d={fr}:s={w}x{h}:fps={fps}")
-    elif mode == "tiltup":
-        zp = (f"zoompan=z=1.1:x='iw/2-(iw/zoom/2)'"
-              f":y='min(ih*(1-1/zoom),ih/2-(ih/zoom/2)+on*0.4)':d={fr}:s={w}x{h}:fps={fps}")
-    elif mode == "tiltdown":
-        zp = (f"zoompan=z=1.1:x='iw/2-(iw/zoom/2)'"
-              f":y='max(0,ih/2-(ih/zoom/2)-on*0.4)':d={fr}:s={w}x{h}:fps={fps}")
+    if mode == "zoomin_smooth":
+        # Very gentle centered zoom to minimize perceived shaking
+        zp = (f"zoompan=z='if(eq(on,1),1.0,min(zoom+0.00018,1.06))'"
+              f":x='trunc(iw/2-(iw/zoom/2))':y='trunc(ih/2-(ih/zoom/2))':d={fr}:s={w}x{h}:fps={fps}")
+    elif mode == "static":
+        zp = (f"zoompan=z=1.0:x='trunc(iw/2-(iw/zoom/2))'"
+              f":y='trunc(ih/2-(ih/zoom/2))':d={fr}:s={w}x{h}:fps={fps}")
     else:
-        zp = f"scale={w}:{h},setsar=1"
+        zp = (f"zoompan=z='if(eq(on,1),1.0,min(zoom+0.00015,1.05))'"
+              f":x='trunc(iw/2-(iw/zoom/2))':y='trunc(ih/2-(ih/zoom/2))':d={fr}:s={w}x{h}:fps={fps}")
 
     # blurred bg: scale to fill, crop, blur
     # fitted fg:  scale to fit (letterbox/pillarbox), no distortion
