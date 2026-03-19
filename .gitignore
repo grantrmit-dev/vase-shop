@@ -1,0 +1,29 @@
+__pycache__/
+scripts/__pycache__/
+.openclaw/
+memory/
+*.tar.gz
+*.docx
+*.pptx
+output/
+
+# Agent/workspace config (local only)
+AGENTS.md
+SOUL.md
+MEMORY.md
+TOOLS.md
+IDENTITY.md
+USER.md
+HEARTBEAT.md
+TASK_STATE.md
+usage/
+
+# Project files not belonging to vase-shop
+grant-app/
+himalaya-manual/
+FBG Brochure/
+*.m
+*.py
+*.sh
+narration.txt
+vase-shop-app/
