@@ -13,8 +13,12 @@ REPORT_FILE = DATA_DIR / 'daily_model_usage.json'
 
 
 def run_status_json():
-    out = subprocess.check_output(['openclaw', 'status', '--usage', '--json'], text=True)
-    return json.loads(out)
+    try:
+        out = subprocess.check_output(['openclaw', 'status', '--json'], text=True, stderr=subprocess.DEVNULL)
+        return json.loads(out)
+    except (subprocess.CalledProcessError, json.JSONDecodeError) as e:
+        print(f'run_status_json failed: {e}')
+        return {}
 
 
 def capture_snapshot():

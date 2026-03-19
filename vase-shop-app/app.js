@@ -1,10 +1,10 @@
 const vases = [
-  { id: 1, name: 'Aero Minimal', style: 'minimal', material: 'PLA', basePrice: 32, colors: ['White','Black','Sand'], image: 'https://images.pexels.com/photos/1804035/pexels-photo-1804035.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
-  { id: 2, name: 'Helix Bloom', style: 'spiral', material: 'PETG', basePrice: 48, colors: ['Teal','Amber','Graphite'], image: 'https://images.pexels.com/photos/4611612/pexels-photo-4611612.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
-  { id: 3, name: 'Prism Nest', style: 'geometric', material: 'PLA', basePrice: 39, colors: ['Ivory','Olive','Slate'], image: 'https://images.pexels.com/photos/1166644/pexels-photo-1166644.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
-  { id: 4, name: 'Coral Flow', style: 'organic', material: 'Resin', basePrice: 74, colors: ['Pearl','Rose','Smoke'], image: 'https://images.pexels.com/photos/4207892/pexels-photo-4207892.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
-  { id: 5, name: 'Facet Tower', style: 'geometric', material: 'PETG', basePrice: 56, colors: ['Cobalt','Lime','Silver'], image: 'https://images.pexels.com/photos/6805522/pexels-photo-6805522.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' },
-  { id: 6, name: 'Zen Curve', style: 'minimal', material: 'PLA', basePrice: 29, colors: ['Cream','Navy','Terracotta'], image: 'https://images.pexels.com/photos/2062433/pexels-photo-2062433.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop' }
+  { id: 1, name: 'Aero Minimal', style: 'minimal', material: 'PLA', basePrice: 32, colors: ['White','Black','Sand'], image: 'https://picsum.photos/seed/vase1/400/300' },
+  { id: 2, name: 'Helix Bloom', style: 'spiral', material: 'PETG', basePrice: 48, colors: ['Teal','Amber','Graphite'], image: 'https://picsum.photos/seed/vase2/400/300' },
+  { id: 3, name: 'Prism Nest', style: 'geometric', material: 'PLA', basePrice: 39, colors: ['Ivory','Olive','Slate'], image: 'https://picsum.photos/seed/vase3/400/300' },
+  { id: 4, name: 'Coral Flow', style: 'organic', material: 'Resin', basePrice: 74, colors: ['Pearl','Rose','Smoke'], image: 'https://picsum.photos/seed/vase4/400/300' },
+  { id: 5, name: 'Facet Tower', style: 'geometric', material: 'PETG', basePrice: 56, colors: ['Cobalt','Lime','Silver'], image: 'https://picsum.photos/seed/vase5/400/300' },
+  { id: 6, name: 'Zen Curve', style: 'minimal', material: 'PLA', basePrice: 29, colors: ['Cream','Navy','Terracotta'], image: 'https://picsum.photos/seed/vase6/400/300' }
 ];
 
 const sizeMultiplier = { small: 0.9, medium: 1, large: 1.25 };
@@ -36,8 +36,9 @@ function renderCatalog() {
   catalogEl.innerHTML = '';
   filteredVases().forEach(vase => {
     const node = template.content.cloneNode(true);
-    node.querySelector('.card-img').src = vase.image;
-    node.querySelector('.card-img').alt = vase.name;
+    const img = node.querySelector('.card-img');
+    img.src = vase.image;
+    img.alt = vase.name;
     node.querySelector('.title').textContent = vase.name;
     node.querySelector('.meta').textContent = `${vase.style} • ${vase.material}`;
     node.querySelector('.price').textContent = `From $${vase.basePrice}`;
@@ -109,8 +110,24 @@ document.getElementById('checkoutForm').addEventListener('submit', (e) => {
   renderCart();
   e.target.reset();
   statusEl.textContent = `Order ${order.id} placed successfully.`;
+  renderOrders();
 });
+
+function renderOrders() {
+  const ordersEl = document.getElementById('orders');
+  if (!ordersEl) return;
+  ordersEl.innerHTML = '';
+  const keys = Object.keys(localStorage).filter(k => k.startsWith('ORD-')).sort();
+  if (!keys.length) { ordersEl.textContent = 'No past orders.'; return; }
+  keys.forEach(k => {
+    const order = JSON.parse(localStorage.getItem(k));
+    const li = document.createElement('li');
+    li.textContent = `${order.id} — ${order.customer.name} — $${order.total} (${order.items.length} item${order.items.length !== 1 ? 's' : ''})`;
+    ordersEl.appendChild(li);
+  });
+}
 
 priceValue.textContent = priceFilter.value;
 renderCatalog();
 renderCart();
+renderOrders();
