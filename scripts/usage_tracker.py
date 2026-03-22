@@ -12,13 +12,20 @@ SNAP_FILE = DATA_DIR / 'openclaw_usage_snapshots.jsonl'
 REPORT_FILE = DATA_DIR / 'daily_model_usage.json'
 
 
+OPENCLAW_BIN = '/home/han/.npm-global/bin/openclaw'
+
+
 def run_status_json():
-    try:
-        out = subprocess.check_output(['openclaw', 'status', '--json'], text=True, stderr=subprocess.DEVNULL)
-        return json.loads(out)
-    except (subprocess.CalledProcessError, json.JSONDecodeError) as e:
-        print(f'run_status_json failed: {e}')
-        return {}
+    # Use full path so this works in cron/heartbeat contexts where PATH is limited
+    candidates = [OPENCLAW_BIN, 'openclaw']
+    for cmd in candidates:
+        try:
+            out = subprocess.check_output([cmd, 'status', '--json'], text=True, stderr=subprocess.DEVNULL)
+            return json.loads(out)
+        except (subprocess.CalledProcessError, json.JSONDecodeError, FileNotFoundError):
+            continue
+    print('run_status_json failed: openclaw not found or returned invalid JSON')
+    return {}
 
 
 def capture_snapshot():

@@ -193,18 +193,114 @@
   },
   {
     "day": "2026-03-18",
+    "model": "claude-opus-4-6",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+  },
+  {
+    "day": "2026-03-18",
     "model": "gpt-5.3-codex",
-    "inputTokens": 10778,
+    "inputTokens": 14643,
     "outputTokens": 1334,
     "cacheRead": 21376,
     "cacheWrite": 0
   },
   {
     "day": "2026-03-18",
+    "model": "gpt-5.4",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+  },
+  {
+    "day": "2026-03-18",
     "model": "opus-4.6",
-    "inputTokens": 3,
-    "outputTokens": 736,
-    "cacheRead": 87355,
+    "inputTokens": 4,
+    "outputTokens": 1141,
+    "cacheRead": 121632,
+    "cacheWrite": 0
+  },
+  {
+    "day": "2026-03-19",
+    "model": "claude-opus-4-6",
+    "inputTokens": 50,
+    "outputTokens": 35170,
+    "cacheRead": 1005940,
+    "cacheWrite": 366595
+  },
+  {
+    "day": "2026-03-19",
+    "model": "claude-sonnet-4-5",
+    "inputTokens": 10,
+    "outputTokens": 423,
+    "cacheRead": 12239,
+    "cacheWrite": 29356
+  },
+  {
+    "day": "2026-03-19",
+    "model": "claude-sonnet-4-6",
+    "inputTokens": 29,
+    "outputTokens": 6480,
+    "cacheRead": 103828,
+    "cacheWrite": 40425
+  },
+  {
+    "day": "2026-03-19",
+    "model": "opus-4.6",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+  },
+  {
+    "day": "2026-03-20",
+    "model": "claude-opus-4-6",
+    "inputTokens": 18,
+    "outputTokens": 3420,
+    "cacheRead": 285628,
+    "cacheWrite": 242280
+  },
+  {
+    "day": "2026-03-20",
+    "model": "claude-sonnet-4-6",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cacheRead": 0,
+    "cacheWrite": 89294
+  },
+  {
+    "day": "2026-03-20",
+    "model": "opus-4.6",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+  },
+  {
+    "day": "2026-03-21",
+    "model": "claude-opus-4-6",
+    "inputTokens": 6,
+    "outputTokens": 1969,
+    "cacheRead": 52268,
+    "cacheWrite": 52892
+  },
+  {
+    "day": "2026-03-21",
+    "model": "claude-sonnet-4-6",
+    "inputTokens": 4,
+    "outputTokens": 387,
+    "cacheRead": 99667,
+    "cacheWrite": 0
+  },
+  {
+    "day": "2026-03-21",
+    "model": "opus-4.6",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cacheRead": 0,
     "cacheWrite": 0
   }
 ]
