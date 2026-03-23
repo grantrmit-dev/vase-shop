@@ -282,10 +282,10 @@
   {
     "day": "2026-03-21",
     "model": "claude-opus-4-6",
-    "inputTokens": 6,
-    "outputTokens": 1969,
-    "cacheRead": 52268,
-    "cacheWrite": 52892
+    "inputTokens": 7,
+    "outputTokens": 2114,
+    "cacheRead": 52563,
+    "cacheWrite": 53157
   },
   {
     "day": "2026-03-21",
@@ -297,6 +297,30 @@
   },
   {
     "day": "2026-03-21",
+    "model": "opus-4.6",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cacheRead": 0,
+    "cacheWrite": 0
+  },
+  {
+    "day": "2026-03-22",
+    "model": "claude-opus-4-6",
+    "inputTokens": 0,
+    "outputTokens": 1006,
+    "cacheRead": 879,
+    "cacheWrite": 411
+  },
+  {
+    "day": "2026-03-22",
+    "model": "claude-sonnet-4-6",
+    "inputTokens": 0,
+    "outputTokens": 0,
+    "cacheRead": 7047,
+    "cacheWrite": 0
+  },
+  {
+    "day": "2026-03-22",
     "model": "opus-4.6",
     "inputTokens": 0,
     "outputTokens": 0,
