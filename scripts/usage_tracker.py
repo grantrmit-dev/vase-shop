@@ -57,11 +57,26 @@ def load_rows():
     if not SNAP_FILE.exists():
         return []
     rows = []
+    errors = []
     with SNAP_FILE.open('r', encoding='utf-8') as f:
-        for line in f:
+        for line_num, line in enumerate(f, 1):
             line = line.strip()
-            if line:
+            if not line:
+                continue
+            try:
                 rows.append(json.loads(line))
+            except json.JSONDecodeError as e:
+                # Log corrupted lines but continue processing
+                errors.append(f"Line {line_num}: {e} | Data: {line[:80]}")
+                continue
+    
+    if errors:
+        print(f"⚠️  Skipped {len(errors)} corrupted line(s) in {SNAP_FILE}:", file=__import__('sys').stderr)
+        for err in errors[:5]:  # Show first 5 errors
+            print(f"  {err}", file=__import__('sys').stderr)
+        if len(errors) > 5:
+            print(f"  ... and {len(errors) - 5} more", file=__import__('sys').stderr)
+    
     return rows
 
 
