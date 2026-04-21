@@ -6,6 +6,8 @@ memory/
 *.docx
 *.pptx
 output/
+tmp/
+archive/
 
 # Agent/workspace config (local only)
 AGENTS.md

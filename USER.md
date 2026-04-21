@@ -9,6 +9,8 @@ _Learn about the person you're helping. Update this as you go._
 - **Notes:**
   - User preference: respond to every message they send (do not stay silent).
   - On every heartbeat, review current mistakes/issues, propose improvements, and use multiple parallel sub-agents for the review.
+  - On every heartbeat, check memory as part of the review.
+  - On every new session, check memory during startup before replying.
 
 ## Context
 
